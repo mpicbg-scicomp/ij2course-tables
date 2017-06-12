@@ -36,6 +36,25 @@ public class ResultsTableConverter {
     public static ResultsTable convertIJ2toIJ1(GenericTable tableIn) {
         ResultsTable tableOut = new ResultsTable();
 
+        for (int rowIndex = 0; rowIndex < tableIn.getRowCount(); rowIndex++) {
+            tableOut.incrementCounter();
+            for (int columnIndex = 0; columnIndex < tableIn.getColumnCount(); columnIndex++) {
+                Column column = tableIn.get(columnIndex);
+
+                // read header of a column
+                String header = column.getHeader();
+
+                // read value of a field (row/column) and copy it to the new table
+                if (column instanceof DoubleColumn) {
+                    double value = ((DoubleColumn) column).getValue(rowIndex);
+                    tableOut.addValue(header, value);
+                } else {
+                    Object value = column.get(rowIndex);
+                    tableOut.addValue(header, value.toString());
+                }
+            }
+        }
+
         return tableOut;
     }
 
