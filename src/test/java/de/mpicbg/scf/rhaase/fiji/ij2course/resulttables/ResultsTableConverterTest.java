@@ -43,7 +43,7 @@ public class ResultsTableConverterTest {
     static double tolerance = 0.0001;
 
     @Test
-    public void testIfConversionIsReversive() {
+    public void testIfConversionIsReversible() {
         ImageJ ij = new net.imagej.ImageJ();
 
         // create a test table
